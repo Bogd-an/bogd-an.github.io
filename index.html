@@ -2,6 +2,7 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.2">
   <title>Bogd-an</title>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@5.2.0/github-markdown-dark.css" media="(prefers-color-scheme: dark)">
@@ -9,11 +10,13 @@
   <style>
     body {
       padding: 1rem;
+      font-size: 1.2rem;
     }
     .markdown-body {
       max-width: 800px;
       margin: auto;
     }
+
   </style>
 </head>
 <body class="markdown-body">
@@ -21,17 +24,22 @@
     loading with js...
   </div>
 </body>
-  <script>
-    // const user = 'Bogd-an'
-    const user = location.host.split('.')[0]
-    const md = document.querySelector('#md');
-    fetch(`https://raw.githubusercontent.com/${user}/${user}/main/README.md`)
-      .then(response => response.text())
-      .then(text => {
-        md.innerHTML = marked.parse(text)
-      })
-      .catch(err => {
-        md.innerHTML = 'Error'
-      })
-  </script>
+<script>
+  // const user = 'Bogd-an'
+  const user = location.host.split('.')[0]
+  const md = document.querySelector('#md')
+  fetch(`https://raw.githubusercontent.com/${user}/${user}/main/README.md`)
+    .then(response => response.text())
+    .then(text => {
+      md.innerHTML = marked.parse(text)
+      if (/Mobi|Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
+        .test(navigator.userAgent)
+      ) {
+        document.body.style.fontSize = '2em'; // вдвічі більший шрифт
+      }
+    })
+    .catch(err => {
+      md.innerHTML = 'Error'
+    })
+</script>
 </html>
