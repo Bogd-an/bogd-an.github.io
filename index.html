@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <title>Bogd-an</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/sindresorhus/github-markdown-css@5.2.0/github-markdown-dark.css" media="(prefers-color-scheme: dark)">
+
+  <style>
+    body {
+      padding: 1rem;
+    }
+    .markdown-body {
+      max-width: 800px;
+      margin: auto;
+    }
+  </style>
+</head>
+<body class="markdown-body">
+  <div id="md">
+    loading with js...
+  </div>
+</body>
+  <script>
+    // const user = 'Bogd-an'
+    const user = location.host.split('.')[0]
+    const md = document.querySelector('#md');
+    fetch(`https://raw.githubusercontent.com/${user}/${user}/main/README.md`)
+      .then(response => response.text())
+      .then(text => {
+        md.innerHTML = marked.parse(text)
+      })
+      .catch(err => {
+        md.innerHTML = 'Error'
+      })
+  </script>
+</html>
